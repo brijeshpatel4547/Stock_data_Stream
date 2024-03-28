@@ -1,0 +1,77 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "stockstreamadf"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"dest1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'dest1'"
+		},
+		"source1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'source1'"
+		},
+		"dest1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://streamedstockdata.dfs.core.windows.net/"
+		},
+		"source1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://streamedstockdata.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "stockstreamadf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"dest1_accountKey": {
+						"value": "[parameters('dest1_accountKey')]"
+					},
+					"source1_accountKey": {
+						"value": "[parameters('source1_accountKey')]"
+					},
+					"dest1_properties_typeProperties_url": {
+						"value": "[parameters('dest1_properties_typeProperties_url')]"
+					},
+					"source1_properties_typeProperties_url": {
+						"value": "[parameters('source1_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
