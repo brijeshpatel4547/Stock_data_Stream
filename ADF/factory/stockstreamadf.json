@@ -1,0 +1,9 @@
+{
+	"name": "stockstreamadf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "18594359-da52-439c-b14a-772dcab81759",
+		"tenantId": "b5a2d267-4ba4-4f75-a2c3-19ef56c332b5"
+	}
+}
